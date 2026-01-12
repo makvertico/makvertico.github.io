@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my_Portfolio_</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <style>
+        :root {
+            --bg-color: #050505;
+            --card-bg: #0d1117;
+            --border-color: #30363d;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent-green: #3fb950;
+            --accent-blue: #58a6ff;
+            --behance-blue: #0057ff;
+            --font-mono: 'Fira Code', monospace;
+            --font-sans: 'Inter', sans-serif;
+            
+            /* Game Specific Variables */
+            --game-bug: #fb7185;
+            --game-glow: 0 0 15px;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #eef2f6;
+            --card-bg: #ffffff;
+            --border-color: #d0d7de;
+            --text-main: #1f2328;
+            --text-muted: #656d76;
+            --accent-green: #1a7f37;
+            --accent-blue: #0969da;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* --- ANIMATED GRADIENT BACKGROUND --- */
+        .bg-gradient-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(at 0% 0%, rgba(63, 185, 80, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(88, 166, 255, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(128, 0, 255, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(255, 166, 0, 0.05) 0px, transparent 50%);
+            background-size: 200% 200%;
+            animation: meshFlow 20s ease infinite;
+        }
+
+        @keyframes meshFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- LAYOUT --- */
+        .app-layout {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 4rem;
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .sidebar-label {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .social-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .social-icon-v {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .social-icon-v:hover {
+            color: var(--accent-green);
+            transform: translateX(5px);
+        }
+
+        .content-area {
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        /* --- HEADER --- */
+        .terminal-header {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .header-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* --- NEW HEADER BUTTONS --- */
+        .header-buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-green);
+            color: #000;
+            border: none;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(63, 185, 80, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+        .btn-secondary:hover {
+            border-color: var(--text-main);
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* --- HEADER GAME PREVIEW --- */
+        .header-game-preview {
+            flex: 0 0 340px;
+            height: 300px;
+            background: #070a1c;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        .preview-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.5;
+        }
+
+        .status-badge {
+            position: absolute; top: 15px; right: 15px;
+            background: rgba(255,0,0,0.2); border: 1px solid rgba(255,0,0,0.4);
+            color: #ff5555; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px;
+            font-family: var(--font-mono);
+            animation: blink 2s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .theme-toggle {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            z-index: 20;
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+
+        .cmd-line {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .cmd-user {
+            color: var(--accent-blue);
+        }
+
+        /* Typing Animation */
+        .title-wrapper {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: .15em solid var(--accent-green);
+            animation: typing 2.5s steps(40, end), blink-caret .75s step-end infinite;
+            max-width: fit-content;
+        }
+
+        h1 {
+            font-family: var(--font-sans);
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 span {
+            color: var(--accent-green);
+        }
+
+        .subtitle {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--accent-green);
+            padding-left: 1rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease-out forwards;
+            animation-delay: 2.2s;
+        }
+
+        .bio-text {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 750px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease-out forwards;
+            animation-delay: 2.5s;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-green); }
+        }
+
+        .animate-up {
+            opacity: 0;
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        /* --- GRID --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr) 0.8fr;
+            gap: 1.5rem;
+            grid-auto-rows: min-content;
+        }
+
+        /* --- CARDS --- */
+        .bento-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            min-height: 250px;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-arrow {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--border-color);
+            font-family: var(--font-mono);
+            font-weight: 300;
+            transition: 0.3s;
+        }
+
+        .bento-card:hover .card-arrow {
+            color: var(--accent-green);
+            transform: translateX(5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .dir-tag {
+            color: var(--accent-green);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            background: rgba(63, 185, 80, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .preview-list {
+            list-style: none;
+        }
+
+        .preview-item {
+            margin-bottom: 1.5rem;
+            border-left: 2px solid var(--border-color);
+            padding-left: 1rem;
+            transition: 0.3s;
+        }
+
+        .bento-card:hover .preview-item:hover {
+            border-left-color: var(--accent-green);
+        }
+
+        .preview-name {
+            color: var(--accent-green);
+            font-weight: 600;
+            font-size: 1rem;
+            display: block;
+        }
+
+        .preview-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* --- BEHANCE GALLERY STYLE --- */
+        .card-behance-gallery {
+            padding: 10px;
+            background: var(--card-bg);
+            position: relative;
+        }
+
+        .behance-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
+            background: white;
+            color: var(--behance-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: 0.2s;
+        }
+
+        .behance-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 8px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .g-item {
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            transition: 0.3s;
+            background-color: var(--behance-blue);
+            opacity: 0.8;
+        }
+
+        .bento-card:hover .g-item {
+            opacity: 1;
+        }
+
+        .g-item.main {
+            grid-row: 1 / -1;
+            background-image: linear-gradient(135deg, #0057ff, #00c6ff);
+        }
+
+        .g-item.sub1 {
+            grid-column: 2;
+            grid-row: 1;
+            background-image: linear-gradient(135deg, #ff00cc, #333399);
+        }
+
+        .g-item.sub2 {
+            grid-column: 2;
+            grid-row: 2;
+            background-image: linear-gradient(135deg, #42275a, #734b6d);
+        }
+
+        .g-item.logo-box {
+            grid-column: 2;
+            grid-row: 3;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--behance-blue);
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .gallery-overlay-text {
+            position: absolute;
+            bottom: 20px;
+            left: 25px;
+            pointer-events: none;
+        }
+
+        .gallery-overlay-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            line-height: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-overlay-text span {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+
+        /* --- SKILLS REARRANGED --- */
+        .card-skills {
+            grid-column: span 2;
+            height: fit-content;
+            padding-bottom: 2rem;
+        }
+
+        .skill-category-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .skill-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .skill-group-title {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            font-family: var(--font-mono);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2px;
+            margin-bottom: 5px;
+            width: fit-content;
+        }
+
+        .skill-icons-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .mini-skill {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .mini-skill i {
+            font-size: 32px; 
+        }
+
+        .mini-skill:hover {
+            transform: translateY(-5px);
+        }
+
+        .custom-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* --- GAME OVERLAY STYLES --- */
+        .game-overlay-container {
+            width: 100%;
+            height: 500px;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(4px);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            z-index: 5;
+        }
+        .hud span { color: var(--accent-blue); font-weight: bold; }
+
+        /* Game Elements */
+        .player {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-green);
+            border-radius: 4px;
+            box-shadow: 0 0 10px var(--accent-green);
+            transition: transform 0.05s linear;
+            z-index: 2;
+        }
+
+        .data {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-blue);
+            animation: pulse 1.5s infinite ease-in-out;
+            z-index: 2;
+        }
+
+        .bug {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--game-bug);
+            border-radius: 4px;
+            box-shadow: 0 0 10px var(--game-bug);
+            animation: float 2s infinite ease-in-out;
+            z-index: 2;
+        }
+
+        /* Game Over Screen */
+        .gameover {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            z-index: 20;
+        }
+
+        .gameover h3 { color: var(--game-bug); margin-bottom: 10px; font-family: var(--font-mono); font-size: 1.5rem;}
+        .gameover p { color: var(--text-main); margin-bottom: 20px; font-family: var(--font-mono); font-size: 1.1rem;}
+        
+        .gameover button {
+            padding: 10px 24px;
+            border: 1px solid var(--accent-green);
+            background: rgba(63, 185, 80, 0.1);
+            color: var(--accent-green);
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .gameover button:hover { background: var(--accent-green); color: #000; }
+
+        @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.7; } }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+        /* --- MODAL STYLES --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1000px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 3rem;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+        .close-modal:hover { color: var(--text-main); }
+        .modal-section-title { font-size: 1.5rem; color: var(--accent-blue); margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .detail-block { margin-bottom: 2.5rem; }
+        .detail-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
+        .detail-name { font-size: 1.3rem; font-weight: 700; color: var(--text-main); }
+        .detail-meta { font-family: var(--font-mono); font-size: 0.95rem; color: var(--accent-green); }
+        .detail-body { color: var(--text-muted); line-height: 1.7; font-size: 1rem; }
+        .detail-tags { display: flex; gap: 0.5rem; margin-top: 0.8rem; flex-wrap: wrap; }
+        .d-tag { background: rgba(255, 255, 255, 0.05); padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; color: var(--accent-blue); border: 1px solid var(--border-color); }
+
+
+        /* Mobile Adjustments */
+        @media (max-width: 1000px) {
+            .app-layout {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                justify-content: center;
+                height: auto;
+                padding: 1rem 0;
+                position: relative;
+                top: 0;
+            }
+            .sidebar-label {
+                writing-mode: horizontal-tb;
+                transform: none;
+                margin: 0 1rem 0 0;
+            }
+            .social-vertical {
+                flex-direction: row;
+            }
+            .terminal-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .header-text { min-width: 100%; }
+            .header-game-preview { width: 100%; height: 300px; margin-top: 1rem; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .card-skills { grid-column: span 1; }
+            h1 { font-size: 2.5rem; }
+            .title-wrapper { white-space: normal; border: none; animation: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-gradient-mesh"></div>
+
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-label">> ./Connect</div>
+            <div class="social-vertical">
+                <a href="https://github.com/makvertico" class="social-icon-v" data-label="Github"><i class="fab fa-github"></i></a>
+                <a href="https://www.behance.net/arkzzsol" target="_blank" class="social-icon-v" data-label="Behance"><i
+                        class="fab fa-behance"></i></a>
+                <a href="mailto:d.ajoykumar90@gmail.com" class="social-icon-v" data-label="Email"><i
+                        class="fas fa-envelope"></i></a>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <header class="terminal-header animate-up delay-1">
+                <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-adjust"></i></button>
+                
+                <div class="header-text">
+                    <span class="cmd-line">> sudo ./init_profile --user="<span class="cmd-user">Ajoy</span>"
+                        --action="view"</span>
+
+                    <div class="title-wrapper">
+                        <h1>Hello, I'm <span>Ajoy Kumar Das</span></h1>
+                    </div>
+
+                    <div class="subtitle">> Data Analyst & Developer</div>
+                    <p class="bio-text">"A data-driven professional focused on turning complex information into actionable
+                        insights and developing modern, efficient solutions."</p>
+                    
+                    <div class="header-buttons">
+                        <button class="btn-primary" onclick="openModal('game')"><i class="fas fa-gamepad"></i> Start System</button>
+                        <a href="resume.pdf" class="btn-secondary" download><i class="fas fa-download"></i> Download CV</a>
+                    </div>
+                </div>
+
+                <div class="header-game-preview">
+                    <div class="preview-grid"></div>
+                    <span class="status-badge">SYSTEM STANDBY</span>
+                    <h3 style="z-index:1; font-family:var(--font-mono); color:var(--accent-blue); margin-bottom:10px;">DATA EATER v2.0</h3>
+                    <button class="btn-secondary" onclick="openModal('game')" style="z-index:1; font-size:0.8rem;">Initialize</button>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+
+                <div class="bento-card animate-up delay-1" onclick="openModal('experience')">
+                    <div class="card-header">
+                        <span class="card-title">/Experience</span>
+                        <span class="dir-tag">[DIR]</span>
+                    </div>
+                    <ul class="preview-list">
+                        <li class="preview-item">
+                            <span class="preview-name">Luit Minerals</span>
+                            <span class="preview-desc">MIS Executive • 2022-2024</span>
+                        </li>
+                        <li class="preview-item">
+                            <span class="preview-name">E-Summit IIT Bhubaneswar</span>
+                            <span class="preview-desc">Machine Learning Intern • 2020</span>
+                        </li>
+                        <li class="preview-item">
+                            <span class="preview-name">NIELIT</span>
+                            <span class="preview-desc">Android & Python Trainee • 2019</span>
+                        </li>
+                    </ul>
+                    <div class="card-arrow">></div>
+                </div>
+
+                <div class="bento-card animate-up delay-1" onclick="openModal('projects')">
+                    <div class="card-header">
+                        <span class="card-title">/Projects</span>
+                        <span class="dir-tag">[EXEC]</span>
+                    </div>
+                    <ul class="preview-list">
+                        <li class="preview-item">
+                            <span class="preview-name">./Malware_Detection.py</span>
+                            <span class="preview-desc">AI/ML • Random Forest/SVM</span>
+                        </li>
+                        <li class="preview-item">
+                            <span class="preview-name">./Cypher_Bot.py</span>
+                            <span class="preview-desc">Python • Discord Automation</span>
+                        </li>
+                        <li class="preview-item">
+                            <span class="preview-name">./Sauce_App.apk</span>
+                            <span class="preview-desc">Android • Food Ordering</span>
+                        </li>
+                        <li class="preview-item">
+                            <span class="preview-name">./V-19_Tracker.apk</span>
+                            <span class="preview-desc">Android • Covid Tracker</span>
+                        </li>
+                    </ul>
+                    <div class="card-arrow">></div>
+                </div>
+
+                <div class="bento-card card-behance-gallery animate-up delay-1">
+                    <a href="https://www.behance.net/arkzzsol" target="_blank" class="behance-btn">
+                        <i class="fas fa-arrow-right" style="font-size: 0.8rem; transform: rotate(-45deg);"></i>
+                    </a>
+                    <div class="gallery-grid">
+                        <div class="g-item main" style="background-image: url('./portfolio.jpg');"></div>
+                        <div class="g-item sub1" style="background-image: url('./Cypher.png');"></div>
+                        <div class="g-item sub2" style="background-image: url('./formula.png');"></div>
+                        <div class="g-item logo-box">Bē</div>
+                    </div>
+                    <div class="gallery-overlay-text"></div>
+                </div>
+
+                <div class="bento-card card-skills animate-up delay-1" onclick="openModal('skills')">
+                    <div class="card-header" style="margin-bottom: 1.5rem;">
+                        <span class="card-title">~/skills/core_stack</span>
+                        <span class="dir-tag">--verbose</span>
+                    </div>
+                    <div class="skill-category-container">
+                        <div class="skill-group">
+                            <div class="skill-icons-row">
+                                <div class="mini-skill" title="Python"><i class="devicon-python-plain colored"></i></div>
+                                <div class="mini-skill" title="Java"><i class="devicon-java-plain colored"></i></div>
+                                <div class="mini-skill" title="C"><i class="devicon-c-plain colored"></i></div>
+                                <div class="mini-skill" title="C++"><i class="devicon-cplusplus-plain colored"></i></div>
+                                <div class="mini-skill" title="IntelliJ"><i class="devicon-intellij-plain colored"></i></div>
+                                <div class="mini-skill" title="Android Studio"><i class="devicon-androidstudio-plain colored"></i></div>
+                                <div class="mini-skill" title="VS Code"><i class="devicon-vscode-plain colored"></i></div>
+                                <div class="mini-skill" title="Git"><i class="devicon-git-plain colored"></i></div>
+                                <div class="mini-skill" title="Figma"><i class="devicon-figma-plain colored"></i></div>
+                                <div class="mini-skill" title="Adobe XD"><i class="devicon-xd-plain colored"></i></div>
+                                <div class="mini-skill" title="Photoshop"><i class="devicon-photoshop-plain colored"></i></div>
+                                <div class="mini-skill" title="Firebase"><i class="devicon-firebase-plain colored"></i></div>
+                                <div class="mini-skill" title="SQL"><i class="devicon-mysql-plain" style="color: #fff;"></i></div>
+                                <div class="mini-skill" title="PyCharm"><i class="devicon-pycharm-plain colored"></i></div>
+                                <div class="mini-skill" title="Figma"><i class="fa-brands fa-figma" style="color:#F24E1E;"></i></div>
+                                <div class="mini-skill" title="Pandas"><i class="devicon-pandas-plain" style="color: #fff;"></i></div>
+                                <div class="mini-skill" title="NumPy"><i class="devicon-numpy-plain" style="color: #76d7c4;"></i></div>
+                                <div class="mini-skill" title="GitHub"><i class="devicon-github-original colored"></i></i></div>
+                                <div class="mini-skill" title="Gradle"><i class="devicon-gradle-plain colored"></i></div>   
+                                <div class="mini-skill" title="Power BI">  
+                                <svg class="custom-svg" viewBox="0 0 32 32" style="fill:#F2C811;">
+                                        <path d="M10 12h4v12h-4zM16 4h4v20h-4zM22 16h4v8h-4z"/>
+                                    </svg>
+                                </div>
+                                <div class="mini-skill" title="Gradle"><i class="fa-solid fa-laptop-code" style="color:#0EA5E9;"></i></div>  
+                                <div class="mini-skill" title="Tableau">
+                                    <svg class="custom-svg" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd" style="fill:#E97627;">
+                                        <path d="M11.5 1.5l1.5 1.5-1.5 1.5-1.5-1.5 1.5-1.5zm-5 5l1.5 1.5-1.5 1.5-1.5-1.5 1.5-1.5zm10 0l1.5 1.5-1.5 1.5-1.5-1.5 1.5-1.5zm-5 5l1.5 1.5-1.5 1.5-1.5-1.5 1.5-1.5zm-8 4l1.5 1.5-1.5 1.5-1.5-1.5 1.5-1.5zm16 0l1.5 1.5-1.5 1.5-1.5-1.5 1.5-1.5zm-8 4l1.5 1.5-1.5 1.5-1.5-1.5 1.5-1.5z"/>
+                                    </svg>
+                                </div>
+                                <div class="mini-skill" title="GenAI"><i class="fa-solid fa-brain" style="color:#8B5CF6;"></i></div>
+                                <div class="mini-skill" title="ML"><i class="fa-solid fa-robot" style="color:#0EA5E9;"></i></div>
+                                <div class="mini-skill" title="AI"><i class="fa-solid fa-microchip" style="color:#22C55E;"></i></div>
+                                <div class="mini-skill" title="TensorFlow"><i class="devicon-tensorflow-original colored"></i></i></div>   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-arrow" style="bottom: 15px; right: 15px;">></div>
+                </div>
+
+                <div class="bento-card animate-up delay-1" onclick="openModal('training')"
+                    style="height: fit-content; min-height: auto;">
+                    <div class="card-header">
+                        <span class="card-title">./Training</span>
+                        <span class="dir-tag">[LIST]</span>
+                    </div>
+                    <div class="skill-icons-row"
+                        style="justify-content: space-between; padding: 0.5rem 0;">
+                        <div class="mini-skill" title="UX Design (Google)"><i class="fab fa-google" style="color:#4285F4;"></i></div>
+                        <div class="mini-skill" title="Unity Game Dev"><i class="fa-solid fa-gamepad" style="color:#111827;"></i></div>
+                        <div class="mini-skill" title="Ethical Hacking"><i class="fas fa-shield-alt" style="color:#cbd5e1;"></i></div>
+                        <div class="mini-skill" title="Android Dev"><i class="devicon-android-plain colored"></i></div>
+                        <div class="mini-skill" title="IoT"><i class="fas fa-microchip" style="color:#f59e0b;"></i></div>
+                    </div>
+                    <div class="card-arrow" style="bottom: 10px;">></div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div id="game-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 600px; padding: 2rem;">
+            <span class="close-modal" onclick="closeModal()">✕ ESC</span>
+            <div class="modal-section-title">> ./data_eater.exe --fullscreen</div>
+            
+            <div class="game-overlay-container" id="game-area">
+                <div class="hud">
+                    <div>SCORE: <span id="score">0</span></div>
+                    <div>Use Arrows/WASD</div>
+                </div>
+                <div class="player" id="player"></div>
+                <div class="gameover" id="gameover">
+                    <h3>SYSTEM FAILURE</h3>
+                    <p>Final Score: <span id="final"></span></p>
+                    <button onclick="restartGame()">REBOOT SYSTEM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="experience-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">✕ ESC</span>
+            <div class="modal-section-title">> cat /var/log/experience.txt</div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">MIS Executive</span><span class="detail-meta">Luit
+                        Minerals | 07/2022 - 08/2024</span></div>
+                <p class="detail-body">
+                    • Spearheaded analytical frameworks using SQL to standardize impact evaluation and data
+                    reporting.<br>
+                    • Leveraged Python for deep-dive EDA and inferential statistics to identify emerging market
+                    trends.<br>
+                    • Developed predictive models and attribution logic in Python to generate actionable business
+                    forecasts.<br>
+                    • Built high-fidelity BI dashboards to translate complex datasets into clear, automated
+                    visualizations.<br>
+                    • Influenced executive decisions by delivering strategic statistical storytelling and data-driven
+                    insights.
+                </p>
+                <div class="detail-tags"><span class="d-tag">SQL</span><span class="d-tag">Python</span><span
+                        class="d-tag">Power BI</span><span class="d-tag">EDA</span></div>
+            </div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Machine Learning Intern (AI)</span><span
+                        class="detail-meta">E-Summit IIT Bhubaneswar | 07/2020 - 08/2020</span></div>
+                <p class="detail-body">
+                    • Led the development of a real-time facial analysis application that utilized CNN-based deep
+                    learning to automate emoji prediction.<br>
+                    • By integrating Haar Cascade for face detection and a custom FER model, created a seamless
+                    interface capable of translating live human expressions into digital icons.<br>
+                    • Demonstrated proficiency in Computer Vision and Neural Network optimization.
+                </p>
+                <div class="detail-tags"><span class="d-tag">CNN</span><span class="d-tag">Computer Vision</span><span
+                        class="d-tag">TensorFlow</span><span class="d-tag">OpenCV</span></div>
+            </div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Android Application Development Trainee</span><span
+                        class="detail-meta">NIELIT (Jorhat) | 06/2019 - 07/2019</span></div>
+                <p class="detail-body">
+                    • Studied the fundamental requirements for building robust Android applications, focusing on System
+                    Architecture and Native Component Lifecycle.<br>
+                    • Successfully developed interactive applications by integrating various Android APIs and adhering
+                    to Material Design standards.
+                </p>
+                <div class="detail-tags"><span class="d-tag">Android</span><span class="d-tag">Java</span><span
+                        class="d-tag">Material Design</span></div>
+            </div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Python Programming Trainee</span><span
+                        class="detail-meta">NIELIT (Jorhat) | 06/2019 - 07/2019</span></div>
+                <p class="detail-body">
+                    • Gained comprehensive proficiency in Python programming fundamentals, focusing on complex data
+                    structures and functional logic.<br>
+                    • Experienced in managing virtual environments and reproducible research using Anaconda and Jupyter.
+                </p>
+                <div class="detail-tags"><span class="d-tag">Python</span><span class="d-tag">Data
+                        Structures</span><span class="d-tag">Jupyter</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="projects-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">✕ ESC</span>
+            <div class="modal-section-title">> ls -la ./projects_archive</div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Malware Detection using Machine Learning</span><span
+                        class="detail-meta">06/2021 - 08/2021</span></div>
+                <p class="detail-body">Developed a predictive model to identify and classify malicious software using
+                    Random Forest and SVM algorithms. Performed feature extraction from PE files, optimizing detection
+                    accuracy through supervised learning and dataset normalization.</p>
+                <div class="detail-tags"><span class="d-tag">Machine Learning</span><span class="d-tag">Random
+                        Forest</span><span class="d-tag">SVM</span><span class="d-tag">Python</span></div>
+            </div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Cypher Bot</span><span
+                        class="detail-meta">03/2021</span></div>
+                <p class="detail-body">Engineered a Discord bot using Python and discord.py library. Implemented
+                    Asynchronous programming (async/io) and Command Cogs for modularity, enabling automated server
+                    moderation and efficient event-driven responses via Webhooks.</p>
+                <div class="detail-tags"><span class="d-tag">Python</span><span class="d-tag">Discord.py</span><span
+                        class="d-tag">Automation</span></div>
+            </div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Sauce</span><span class="detail-meta">03/2020 -
+                        06/2020</span></div>
+                <p class="detail-body">Architected Sauce, a cross-platform mobile application streamlining online food
+                    ordering and delivery. Implemented real-time menu browsing, secure checkout, and order tracking,
+                    ensuring a seamless user experience across multiple devices.</p>
+                <div class="detail-tags"><span class="d-tag">Android</span><span
+                        class="d-tag">Cross-Platform</span><span class="d-tag">UX</span></div>
+            </div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Wall-Q</span><span class="detail-meta">08/2020</span>
+                </div>
+                <p class="detail-body">Developed a native Android application integrating Pexels, Unsplash, and Pixabay
+                    APIs. Implemented asynchronous data fetching and the WallpaperManager API to seamlessly set
+                    high-definition images on Home and Lock screens.</p>
+                <div class="detail-tags"><span class="d-tag">Android Native</span><span class="d-tag">REST
+                        API</span><span class="d-tag">Async</span></div>
+            </div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">V-19 Covid-19 Tracker</span><span
+                        class="detail-meta">05/2020</span></div>
+                <p class="detail-body">Developed a native Android application, V-19, providing real-time, district-wise
+                    COVID-19 tracking for Assam. Integrated live APIs to display critical metrics, including total
+                    active, confirmed, recovered, and deceased patient data.</p>
+                <div class="detail-tags"><span class="d-tag">Android</span><span class="d-tag">Live API</span><span
+                        class="d-tag">Data Viz</span></div>
+            </div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Facial Recognition & Emoji Prediction</span><span
+                        class="detail-meta">05/2020 - 06/2020</span></div>
+                <p class="detail-body">Developed a real-time computer vision system using Python, OpenCV, and
+                    TensorFlow. Engineered a CNN to detect facial features and classify emotional states. The
+                    application successfully mapped live expressions to corresponding emojis.</p>
+                <div class="detail-tags"><span class="d-tag">Python</span><span class="d-tag">TensorFlow</span><span
+                        class="d-tag">OpenCV</span><span class="d-tag">CNN</span></div>
+            </div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Chatbot with NLP</span><span
+                        class="detail-meta">03/2020</span></div>
+                <p class="detail-body">Developed a sophisticated chatbot utilizing Natural Language Processing (NLP) to
+                    interpret and respond to user queries. Leveraged Python and intent-classification models to ensure
+                    contextually accurate and seamless human-like interactions.</p>
+                <div class="detail-tags"><span class="d-tag">Python</span><span class="d-tag">NLP</span><span
+                        class="d-tag">AI</span></div>
+            </div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Rent a Room</span><span class="detail-meta">06/2019 -
+                        07/2019</span></div>
+                <p class="detail-body">Architected a full-stack, cross-platform mobile application utilizing
+                    native-performance components. Engineered scalable backend services for real-time state
+                    synchronization and geospatial querying, optimizing the discovery pipeline for rental markets.</p>
+                <div class="detail-tags"><span class="d-tag">Full-Stack</span><span class="d-tag">Geospatial</span><span
+                        class="d-tag">Mobile</span></div>
+            </div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Formulas Simulation with Python</span><span
+                        class="detail-meta">06/2019</span></div>
+                <p class="detail-body">A Python-based computational engine to simulate complex physics and geometric
+                    models. Developed modular algorithms for Laws of Motion, Centre of Gravity, and financial interest,
+                    prioritizing computational accuracy within a CLI environment.</p>
+                <div class="detail-tags"><span class="d-tag">Python</span><span class="d-tag">Physics</span><span
+                        class="d-tag">CLI</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="skills-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">✕ ESC</span>
+            <div class="modal-section-title">> ./show_full_skillset --verbose</div>
+
+            <div class="detail-block">
+                <div class="detail-name" style="color:var(--accent-blue)">Programming Languages</div>
+                <div class="detail-tags" style="margin-top:10px;">
+                    <span class="d-tag">Python</span><span class="d-tag">Java</span><span class="d-tag">C</span><span
+                        class="d-tag">C++</span><span class="d-tag">Kotlin</span>
+                </div>
+            </div>
+            <div class="detail-block">
+                <div class="detail-name" style="color:var(--accent-blue)">Professional IDEs</div>
+                <div class="detail-tags" style="margin-top:10px;">
+                    <span class="d-tag">IntelliJ IDEA</span><span class="d-tag">Android Studio</span><span
+                        class="d-tag">VS Code</span><span class="d-tag">PyCharm</span>
+                </div>
+            </div>
+            <div class="detail-block">
+                <div class="detail-name" style="color:var(--accent-blue)">Cloud & Backend</div>
+                <div class="detail-tags" style="margin-top:10px;">
+                    <span class="d-tag">Google Firebase (Auth, Firestore)</span>
+                </div>
+            </div>
+            <div class="detail-block">
+                <div class="detail-name" style="color:var(--accent-blue)">Design/UX</div>
+                <div class="detail-tags" style="margin-top:10px;">
+                    <span class="d-tag">Figma</span><span class="d-tag">Adobe XD</span><span
+                        class="d-tag">Wireframing</span><span class="d-tag">Prototyping</span>
+                </div>
+            </div>
+            <div class="detail-block">
+                <div class="detail-name" style="color:var(--accent-blue)">Tools/DevOps</div>
+                <div class="detail-tags" style="margin-top:10px;">
+                    <span class="d-tag">Git</span><span class="d-tag">GitHub</span><span
+                        class="d-tag">Postman</span><span class="d-tag">Gradle</span>
+                </div>
+            </div>
+            <div class="detail-block">
+                <div class="detail-name" style="color:var(--accent-blue)">Data Management & BI</div>
+                <div class="detail-tags" style="margin-top:10px;">
+                    <span class="d-tag">Power BI</span><span class="d-tag">Tableau</span><span class="d-tag">SQL (MySQL,
+                        PostgreSQL)</span><span class="d-tag">Excel (Pivot, VBA)</span>
+                </div>
+            </div>
+            <div class="detail-block">
+                <div class="detail-name" style="color:var(--accent-blue)">Data Libraries</div>
+                <div class="detail-tags" style="margin-top:10px;">
+                    <span class="d-tag">Pandas</span><span class="d-tag">NumPy</span><span
+                        class="d-tag">Matplotlib</span><span class="d-tag">Seaborn</span><span
+                        class="d-tag">Plotly</span>
+                </div>
+            </div>
+            <div class="detail-block">
+                <div class="detail-name" style="color:var(--accent-blue)">Other</div>
+                <div class="detail-tags" style="margin-top:10px;">
+                    <span class="d-tag">Adobe Photoshop</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="training-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">✕ ESC</span>
+            <div class="modal-section-title">> cat certificates.log</div>
+
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Foundations Of User Experience (UX)
+                        Design</span><span class="detail-meta">Google | 03/2021</span></div>
+                <p class="detail-body">Studied User Experience (UX) Design principles, focusing on the end-to-end design
+                    process. Gained proficiency in user research, wireframing, and prototyping to create accessible,
+                    intuitive interfaces.</p>
+            </div>
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Unity Game Development</span><span
+                        class="detail-meta">Unity | 09/2020</span></div>
+                <p class="detail-body">Developed proficiency in Unity Game Engine and C# scripting, focusing on
+                    physics-based player controls and component-based architecture.</p>
+            </div>
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Ethical Hacking</span><span
+                        class="detail-meta">Internshala | 08/2019</span></div>
+                <p class="detail-body">Gained foundational knowledge in Web Application Security, focusing on the OWASP
+                    Top 10 framework. Studied mitigation strategies for XSS, SQL Injection.</p>
+            </div>
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Android App Development</span><span
+                        class="detail-meta">IIT Guwahati | 09/2018</span></div>
+                <p class="detail-body">Mastered Android SDK, Gradle, and Architecture fundamentals through structured
+                    learning, utilizing Android Studio.</p>
+            </div>
+            <div class="detail-block">
+                <div class="detail-head"><span class="detail-name">Internet of Things</span><span
+                        class="detail-meta">GUIST | 10/2018</span></div>
+                <p class="detail-body">Developed foundational expertise in Embedded Systems and IoT using Arduino.
+                    Focused on hardware-software interfacing and sensor data processing.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        function openModal(id) {
+            const modal = document.getElementById(id + '-modal');
+            modal.style.display = 'block';
+            setTimeout(() => modal.style.opacity = '1', 10);
+            
+            // If opening game, trigger resize and DISABLE SCROLL
+            if(id === 'game') {
+                document.body.style.overflow = 'hidden'; 
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                    startGame();
+                }, 100);
+            }
+        }
+        function closeModal() {
+            document.querySelectorAll('.modal-overlay').forEach(m => {
+                m.style.opacity = '0';
+                setTimeout(() => m.style.display = 'none', 300);
+            });
+            
+            // RE-ENABLE SCROLL
+            document.body.style.overflow = 'auto';
+
+            // Stop game loop if closing game
+            alive = false;
+        }
+
+        // Theme Logic
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+        }
+
+        // Close on Escape
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+
+        /* --- GAME LOGIC --- */
+        const gameArea = document.getElementById("game-area");
+        const player = document.getElementById("player");
+        const scoreEl = document.getElementById("score");
+        const over = document.getElementById("gameover");
+        const finalEl = document.getElementById("final");
+
+        let pos = { x: 50, y: 50 };
+        let vel = { x: 0, y: 0 };
+        let score = 0;
+        let alive = false; // Start paused
+        const speed = 0.25; 
+        const playerSize = 20;
+
+        let gameWidth = gameArea.clientWidth;
+        let gameHeight = gameArea.clientHeight;
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            if(gameArea) {
+                gameWidth = gameArea.clientWidth;
+                gameHeight = gameArea.clientHeight;
+            }
+        });
+
+        function spawn(type) {
+            if (!alive) return;
+            const el = document.createElement("div");
+            el.className = type;
+            el.style.left = Math.random() * (gameWidth - 30) + "px";
+            el.style.top = Math.random() * (gameHeight - 30) + "px";
+            gameArea.appendChild(el);
+        }
+
+        function startGame() {
+            if(alive) return; // Prevent double start
+            alive = true;
+            spawn("data");
+            setInterval(() => { if(alive) spawn("bug"); }, 2500);
+            requestAnimationFrame(loop);
+        }
+
+        const keys = {};
+        document.addEventListener("keydown", e => keys[e.key] = true);
+        document.addEventListener("keyup", e => keys[e.key] = false);
+
+        function loop() {
+            if (!alive) return;
+
+            // Movement
+            if (keys.ArrowUp || keys.w) vel.y -= speed;
+            if (keys.ArrowDown || keys.s) vel.y += speed;
+            if (keys.ArrowLeft || keys.a) vel.x -= speed;
+            if (keys.ArrowRight || keys.d) vel.x += speed;
+
+            pos.x += vel.x;
+            pos.y += vel.y;
+
+            // Friction
+            vel.x *= 0.92;
+            vel.y *= 0.92;
+
+            // Boundaries
+            pos.x = Math.max(0, Math.min(gameWidth - playerSize, pos.x));
+            pos.y = Math.max(0, Math.min(gameHeight - playerSize, pos.y));
+
+            player.style.left = pos.x + "px";
+            player.style.top = pos.y + "px";
+
+            checkCollisions();
+            requestAnimationFrame(loop);
+        }
+
+        function checkCollisions() {
+            const pRect = player.getBoundingClientRect();
+
+            document.querySelectorAll(".data").forEach(d => {
+                const dRect = d.getBoundingClientRect();
+                if (isOverlapping(pRect, dRect)) {
+                    d.remove();
+                    score++;
+                    scoreEl.textContent = score;
+                    spawn("data");
+                }
+            });
+
+            document.querySelectorAll(".bug").forEach(b => {
+                const bRect = b.getBoundingClientRect();
+                if (isOverlapping(pRect, bRect)) gameOver();
+            });
+        }
+
+        function isOverlapping(r1, r2) {
+            return !(r1.right < r2.left || r1.left > r2.right || r1.bottom < r2.top || r1.top > r2.bottom);
+        }
+
+        function gameOver() {
+            alive = false;
+            finalEl.textContent = score;
+            over.style.display = "flex";
+        }
+
+        window.restartGame = function() {
+            // Reset state
+            alive = true;
+            score = 0;
+            pos = { x: 50, y: 50 };
+            vel = { x: 0, y: 0 };
+            scoreEl.textContent = "0";
+            over.style.display = "none";
+            
+            // Clear entities
+            document.querySelectorAll(".data, .bug").forEach(e => e.remove());
+            
+            // Restart loop
+            spawn("data");
+            requestAnimationFrame(loop);
+        }
+
+    </script>
+</body>
+
+</html>
